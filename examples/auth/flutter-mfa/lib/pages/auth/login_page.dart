@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mfa_app/main.dart';
+import 'package:mfa_app/notes_home.dart';
 import 'package:mfa_app/pages/mfa/verify_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -56,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   password: password,
                 );
                 if (mounted) {
-                  context.go(MFAVerifyPage.route);
+                  context.go(NotesHomPage.route);
                 }
               } on AuthException catch (error) {
                 ScaffoldMessenger.of(context)
