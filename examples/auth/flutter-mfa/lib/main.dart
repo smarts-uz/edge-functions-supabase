@@ -10,8 +10,8 @@ import 'package:mfa_app/pages/mfa/enroll_page.dart';
 
 void main() async {
   await Supabase.initialize(
-    url: 'YOUR_SUPABASE_URL',
-    anonKey: 'YOUR_ANON_KEY',
+    url: 'https://izqjpmoeaelmziyjkixe.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6cWpwbW9lYWVsbXppeWpraXhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQ0MzE2MzAsImV4cCI6MjAxMDAwNzYzMH0.yeStxGVEFrp51OlYhHfvu-x7BgDLjSIjv17LynkYrvY',
   );
   runApp(const MyApp());
 }
@@ -59,13 +59,15 @@ final _router = GoRouter(
     }
 
     final assuranceLevelData =
-        supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    supabase.auth.mfa.getAuthenticatorAssuranceLevel();
 
     // The user has not setup MFA yet, so send them to enroll MFA page.
     if (assuranceLevelData.currentLevel == AuthenticatorAssuranceLevels.aal1) {
       await supabase.auth.refreshSession();
       final nextLevel =
-          supabase.auth.mfa.getAuthenticatorAssuranceLevel().nextLevel;
+          supabase.auth.mfa
+              .getAuthenticatorAssuranceLevel()
+              .nextLevel;
       if (nextLevel == AuthenticatorAssuranceLevels.aal2) {
         // The user has already setup MFA, but haven't login via MFA
         // Redirect them to the verify page
