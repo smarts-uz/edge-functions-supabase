@@ -6,8 +6,8 @@ import 'package:uuid/uuid.dart';
 
 void main() async {
   await Supabase.initialize(
-    url: 'supabaseUrl',
-    anonKey: 'supabaseAnonKey',
+    url: 'https://zhfyvsfmdsyrljhylxyk.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoZnl2c2ZtZHN5cmxqaHlseHlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQ2OTM3MjgsImV4cCI6MjAxMDI2OTcyOH0.W9Hr1aLino9s65g-XgUIHoQ2jahQgg2JJdaJ9hlB1_Y',
     realtimeClientOptions: const RealtimeClientOptions(eventsPerSecond: 40),
   );
   runApp(const MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
+  const GamePage({super.key});
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -162,7 +162,7 @@ class _LobbyDialogState extends State<_LobbyDialog> {
   List<String> _userids = [];
   bool _loading = false;
 
-  /// Unique identifier for each players to identify eachother in lobby
+  /// Unique identifier for each players to identify each other in lobby
   final myUserId = const Uuid().v4();
 
   late final RealtimeChannel _lobbyChannel;
