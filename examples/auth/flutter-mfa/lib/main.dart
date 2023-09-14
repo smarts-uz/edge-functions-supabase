@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mfa_app/notes_home.dart';
 import 'package:mfa_app/pages/auth/login_page.dart';
 import 'package:mfa_app/pages/auth/register_page.dart';
 import 'package:mfa_app/pages/home_page.dart';
