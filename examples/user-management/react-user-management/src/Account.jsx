@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
-import Avatar from './Avatar'
+// import Avatar from './Avatar'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
+  // const [avatar_url, setAvatarUrl] = useState(null)
 
   useEffect(() => {
     async function getProfile() {
@@ -15,7 +15,8 @@ export default function Account({ session }) {
 
       let { data, error } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`username, website`)
+        // .select(`username, website, avatar_url`)
         .eq('id', user.id)
         .single()
 
@@ -24,7 +25,7 @@ export default function Account({ session }) {
       } else if (data) {
         setUsername(data.username)
         setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        // setAvatarUrl(data.avatar_url)
       }
 
       setLoading(false)
@@ -33,7 +34,8 @@ export default function Account({ session }) {
     getProfile()
   }, [session])
 
-  async function updateProfile(event, avatarUrl) {
+  async function updateProfile(event) {
+  // async function updateProfile(event, avatarUrl) {
     event.preventDefault()
 
     setLoading(true)
@@ -43,7 +45,7 @@ export default function Account({ session }) {
       id: user.id,
       username,
       website,
-      avatarUrl,
+      // avatarUrl,
       updated_at: new Date(),
     }
 
@@ -52,20 +54,20 @@ export default function Account({ session }) {
     if (error) {
       alert(error.message)
     } else {
-      setAvatarUrl(avatarUrl)
+      // setAvatarUrl(avatarUrl)
     }
     setLoading(false)
   }
 
   return (
     <form onSubmit={updateProfile} className="form-widget">
-      <Avatar
-        url={avatar_url}
-        size={150}
-        onUpload={(event, url) => {
-          updateProfile(event, url)
-        }}
-      />
+      {/*<Avatar*/}
+      {/*  url={avatar_url}*/}
+      {/*  size={150}*/}
+      {/*  onUpload={(event, url) => {*/}
+      {/*    updateProfile(event, url)*/}
+      {/*  }}*/}
+      {/*/>*/}
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />

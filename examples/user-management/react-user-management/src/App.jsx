@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { supabase } from './supabaseClient'
-import Auth from './Auth'
+import MyAuth from './pages/MyAuth.jsx'
 import Account from './Account'
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+      {!session ? <MyAuth /> : <Account key={session.user.id} session={session} />}
     </div>
   )
 }
