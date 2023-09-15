@@ -6,13 +6,11 @@ export default function MyAuth() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = async (event) => {
+    const handleSignUp = async (event) => {
         event.preventDefault()
 
         setLoading(true)
-        const { error } = await supabase.auth.signInWithPassword({ email: event.target.value, password: event.target.value })
-        // const { error } = await supabase.auth.signInWithPassword({ email: 'full_web_dev@mail.ru', password: import.meta.env.VITE_SUPABASE_PASSWORD })
-
+        const { data, error } = await supabase.auth.signUp({ email: event.target.value, password: event.target.value })
 
         if (error) {
             alert(error.error_description || error.message)
@@ -20,15 +18,16 @@ export default function MyAuth() {
             alert('Check your email for the login link!')
         }
         setLoading(false)
-        // event.target.value = ''
+        event.target.value = ''
+        console.log(data)
     }
 
     return (
         <div className="row flex flex-center">
             <div className="col-6 form-widget">
                 <h1 className="header">Supabase + React</h1>
-                <p className="description">Sign in via magic link with your email below</p>
-                <form className="form-widget" onSubmit={handleLogin}>
+                <p className="description">SignUP </p>
+                <form className="form-widget" onSubmit={handleSignUp}>
                     <div>
                         <input
                             className="inputField"
