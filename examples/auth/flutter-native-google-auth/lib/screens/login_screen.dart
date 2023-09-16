@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
-import 'package:myauthapp/main.dart';
 import 'package:myauthapp/screens/profile_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final supabase = Supabase.instance.client;
   @override
   void initState() {
     _setupAuthListener();
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
             /// Client ID that you registered with Google Cloud.
             /// You will have two different values for iOS and Android.
             final clientId =
-                Platform.isIOS ? 'IOS_CLIENT_ID' : 'ANDROID_CLIENT_ID';
+                Platform.isIOS ? 'IOS_CLIENT_ID' : '172862134267-iluugiq55emnag4jo3acbagp4mh3co1c.apps.googleusercontent.com';
 
             /// Set as reversed DNS form of Google Client ID + `:/` for Google login
             final redirectUrl = '${clientId.split('.').reversed.join('.')}:/';
