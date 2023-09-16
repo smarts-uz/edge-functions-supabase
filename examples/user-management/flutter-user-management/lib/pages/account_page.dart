@@ -129,11 +129,13 @@ class _AccountPageState extends State<AccountPage> {
       SnackBar(
         content: Text(error.message),
         backgroundColor: Theme.of(context).colorScheme.error,
+        width: double.infinity,
       );
     } catch (error) {
       SnackBar(
         content: const Text('Unexpected error occurred'),
         backgroundColor: Theme.of(context).colorScheme.error,
+        width: double.infinity,
       );
     }
     if (!mounted) {
