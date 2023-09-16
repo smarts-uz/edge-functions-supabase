@@ -10,15 +10,16 @@ export default function MyAuth() {
         event.preventDefault()
 
         setLoading(true)
-        const { error } = await supabase.auth.signInWithPassword({ email: event.target.value, password: event.target.value })
+        const { error } = await supabase.auth.signInWithPassword({ email: email, password: password})
         // const { error } = await supabase.auth.signInWithPassword({ email: 'full_web_dev@mail.ru', password: import.meta.env.VITE_SUPABASE_PASSWORD })
 
 
         if (error) {
             alert(error.error_description || error.message)
-        } else {
-            alert('Check your email for the login link!')
         }
+        // else {
+        //     alert('Check your email for the login link!')
+        // }
         setLoading(false)
         // event.target.value = ''
     }
