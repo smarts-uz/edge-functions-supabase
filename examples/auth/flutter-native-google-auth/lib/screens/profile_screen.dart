@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myauthapp/main.dart';
 import 'package:myauthapp/screens/login_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final supabase = Supabase.instance.client;
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -10,6 +12,9 @@ class ProfileScreen extends StatelessWidget {
     final user = supabase.auth.currentUser;
     final profileImageUrl = user?.userMetadata?['avatar_url'];
     final fullName = user?.userMetadata?['full_name'];
+    final emial = user?.userMetadata?['email'];
+    final actionsLink = user?.userMetadata?['actionsLink'];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -45,6 +50,8 @@ class ProfileScreen extends StatelessWidget {
               fullName ?? '',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Text(emial ?? ''),
+            Text(actionsLink ?? ''),
             const SizedBox(height: 32),
           ],
         ),
