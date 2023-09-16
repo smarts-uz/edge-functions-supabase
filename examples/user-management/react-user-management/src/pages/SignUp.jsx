@@ -10,16 +10,15 @@ export default function MyAuth() {
         event.preventDefault()
 
         setLoading(true)
-        const { data, error } = await supabase.auth.signUp({ email: event.target.value, password: event.target.value })
+        const { error } = await supabase.auth.signUp({ email: email, password: password })
 
         if (error) {
             alert(error.error_description || error.message)
-        } else {
-            alert('Check your email for the login link!')
         }
+        // else {
+        //     alert('Check your email for the login link!')
+        // }
         setLoading(false)
-        event.target.value = ''
-        console.log(data)
     }
 
     return (
