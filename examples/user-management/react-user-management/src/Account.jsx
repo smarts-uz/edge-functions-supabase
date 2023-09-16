@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react'
 import {supabase} from './supabaseClient'
-// import Avatar from "./Avatar.jsx";
+import Avatar from "./Avatar.jsx";
 
 export default function Account({session}) {
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState(null)
     const [website, setWebsite] = useState(null)
-    // const [avatar_url, setAvatarUrl] = useState(null)
+    const [avatar_url, setAvatarUrl] = useState(null)
 
     useEffect(() => {
         async function getProfile() {
@@ -24,7 +24,7 @@ export default function Account({session}) {
             } else if (data) {
                 setUsername(data.username)
                 setWebsite(data.website)
-                // setAvatarUrl(data.avatar_url)
+                setAvatarUrl(data.avatar_url)
             }
 
             setLoading(false)
@@ -60,13 +60,13 @@ export default function Account({session}) {
     return (
         <form onSubmit={updateProfile} className="form-widget">
 
-            {/*<Avatar*/}
-            {/*    url={avatar_url}*/}
-            {/*    size={150}*/}
-            {/*    onUpload={(event, url) => {*/}
-            {/*        updateProfile(event, url)*/}
-            {/*    }}*/}
-            {/*/>*/}
+            <Avatar
+                url={avatar_url}
+                size={150}
+                onUpload={(event, url) => {
+                    updateProfile(event, url)
+                }}
+            />
 
             <div>
                 <label htmlFor="email">Email</label>
