@@ -11,7 +11,7 @@ To get the most out of this example, you’ll need to:
 - Create your `.env` file and set your `RESEND_API_KEY`
 
 ```bash
-cp .env.example .env
+cp .env .env
 ```
 
 ## Instructions
