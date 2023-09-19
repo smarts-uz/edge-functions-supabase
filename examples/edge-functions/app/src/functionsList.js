@@ -20,6 +20,7 @@ export const functionsList = [
     'puppeteer',
     'read-storage',
     'restapi',
+    'rest-create',
     'restful-tasks',
     'send-email-resend',
     'send-email-smtp',

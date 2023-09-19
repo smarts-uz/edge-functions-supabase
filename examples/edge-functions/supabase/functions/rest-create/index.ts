@@ -3,12 +3,11 @@
 // This enables autocomplete, go to definition, etc.
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import {corsHeaders} from "../_shared/cors.ts";
 import {createClient} from '@supabase/supabase-js'
-import {corsHeaders} from '../_shared/cors.ts'
-console.log("restapi!")
 
-serve(async (req: Request) => {
 
+serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', {headers: corsHeaders})
   }
@@ -22,7 +21,9 @@ serve(async (req: Request) => {
         {global: {headers: {Authorization: req.headers.get('Authorization')!}}}
     )
 
-    const {data, error} = await supabaseClient.from('tasks').select('*')
+    const { task_name, task } = await req.json()
+
+    const {data, error} = await supabaseClient.from('tasks').insert({ id: 3, task_name: task_name, task: task }).select('*')
     if (error) throw error
 
     return new Response(JSON.stringify({data}), {
