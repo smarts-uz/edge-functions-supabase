@@ -5,7 +5,7 @@ import locale from 'react-json-editor-ajrm/locale/en'
 import { supabase } from './utils/supabaseClient'
 import { functionsList } from './functionsList'
 
-const sampleObject = { name: 'Supabase!!!' }
+const sampleObject = { name: 'Some name' }
 
 function App() {
   const { user } = Auth.useUser()

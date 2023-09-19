@@ -19,6 +19,7 @@ export const functionsList = [
     'postgres-on-the-edge',
     'puppeteer',
     'read-storage',
+    'restapi',
     'restful-tasks',
     'send-email-resend',
     'send-email-smtp',
