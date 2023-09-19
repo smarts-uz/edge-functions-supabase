@@ -21,6 +21,7 @@ export const functionsList = [
     'read-storage',
     'restapi',
     'rest-create',
+    'rest-delete',
     'restful-tasks',
     'send-email-resend',
     'send-email-smtp',
