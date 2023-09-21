@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
+import {useInvoke} from "../../hooks/useInvoke.js";
 
 const RestCreate = () => {
     const [taskName, setTaskName] = useState('')
     const [task, setTask] = useState('')
-
+    const [invoke, setInvoke] = useInvoke({data:{taskName: taskName, task: task}, func_name:'rest-create'})
 
     return (
         <div>
@@ -13,7 +14,7 @@ const RestCreate = () => {
                     type="text"
                     className="form-control"
                     id="floatingInput"
-                    placeholder=""
+                    placeholder="Task name"
                     onChange={(e) => setTaskName(e.target.value)}
                     />
                     <label htmlFor="floatingInput">Task name</label>
@@ -29,22 +30,11 @@ const RestCreate = () => {
                     <label htmlFor="floatingTask">Task</label>
             </div>
 
-
-            {/*<JSONInput*/}
-            {/*    onChange={({ jsObject }) => setRequestJson(jsObject)}*/}
-            {/*    placeholder={sampleObject}*/}
-            {/*    locale={locale}*/}
-            {/*    height="100"*/}
-            {/*    width="100%"*/}
-            {/*/>*/}
-
-
-
             <div>
-                {/*<button className='btn btn-primary mt-5 mb-5' onClick={}>Send request</button>*/}
+                <button className='btn btn-primary mt-5 mb-5' onClick={setInvoke}>Send request</button>
             </div>
             <h4 className='title'>Body</h4>
-            {/*<pre className="bg-info">{JSON.stringify(, null, 2)}</pre>*/}
+            <pre className="bg-info">{JSON.stringify(invoke, null, 2)}</pre>
 
         </div>
     );

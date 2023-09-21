@@ -21,10 +21,10 @@ serve(async (req) => {
         {global: {headers: {Authorization: req.headers.get('Authorization')!}}}
     )
 
-    const { task_name, task } = await req.json()
+    const { taskName, task } = await req.json()
 
     const {data, error} = await supabaseClient.from('tasks')
-        .insert({ task_name: task_name, task: task })
+        .insert({ task_name: taskName, task: task })
         .select('*')
     if (error) throw error
 

@@ -8,7 +8,6 @@ import RestFull from "./components/rest/RestFull.jsx";
 import Browser from "./components/rest/Browser.jsx";
 import RestCreate from "./components/rest/RestCreate.jsx";
 import RestDelete from "./components/rest/RestDelete.jsx";
-import RestRead from "./components/rest/RestRead.jsx";
 import Select from "./components/rest/Select.jsx";
 import Others from "./pages/Others.jsx";
 import MainPage from "./pages/MainPage.jsx";
@@ -61,11 +60,6 @@ export const rest_nav = [
         title: 'Select users',
         path: 'select-users',
         element: <Select/>
-    },
-    {
-        title: 'Rest Read',
-        path: 'restapi',
-        element: <RestRead/>
     },
     {
         title: 'Rest Create',
