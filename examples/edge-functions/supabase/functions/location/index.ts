@@ -11,7 +11,7 @@ function ips(req: Request) {
 serve(async (req) => {
   const clientIps = ips(req) || ['']
   const res = await fetch(
-    `https://ipinfo.io/${clientIps[0]}?token=${Deno.env.get('IPINFO_TOKEN')}`,
+    `https://ipinfo.io/${clientIps[0]}?token=87f67937925a69`,
     {
       headers: { 'Content-Type': 'application/json' },
     }
