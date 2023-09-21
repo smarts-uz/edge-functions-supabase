@@ -15,13 +15,10 @@ serve(async (req: Request) => {
     }
 
     try {
-        // Create a Supabase client with the Auth context of the logged in user.
         const supabaseClient = createClient(
-            // Supabase API URL - env var exported by default.
-            Deno.env.get('SUPABASE_URL') ?? 'https://decyitlleemplzimqedq.supabase.co',
-            // Supabase API ANON KEY - env var exported by default.
-            Deno.env.get('SUPABASE_ANON_KEY') ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlY3lpdGxsZWVtcGx6aW1xZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQ4MzkwNzcsImV4cCI6MjAxMDQxNTA3N30.-o7eoRQ6RHasA2CHVS1su2lcM9fAk0UbBsQhBmE33gM',
-            // Create client with Auth context of the user that called the function.
+            'https://decyitlleemplzimqedq.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlY3lpdGxsZWVtcGx6aW1xZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQ4MzkwNzcsImV4cCI6MjAxMDQxNTA3N30.-o7eoRQ6RHasA2CHVS1su2lcM9fAk0UbBsQhBmE33gM',
+            // Create client with AuthPage context of the user that called the function.
             // This way your row-level-security (RLS) policies are applied.
             {global: {headers: {Authorization: req.headers.get('Authorization')!}}}
         )
