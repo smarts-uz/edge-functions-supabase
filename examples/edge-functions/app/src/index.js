@@ -4,20 +4,16 @@ import './index.css'
 import App from './App'
 import { Auth } from '@supabase/auth-ui-react'
 import { supabase } from './utils/supabaseClient'
+import {BrowserRouter} from "react-router-dom";
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Auth.UserContextProvider supabaseClient={supabase}>
-//       <App />
-//     </Auth.UserContextProvider>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <Auth.UserContextProvider supabaseClient={supabase}>
-            <App />
-        </Auth.UserContextProvider>
+        <BrowserRouter>
+            <Auth.UserContextProvider supabaseClient={supabase}>
+                <App />
+            </Auth.UserContextProvider>
+        </BrowserRouter>
+
     </React.StrictMode>,
 )
