@@ -7,8 +7,7 @@ const useInvoke = (req)=> {
 
     const invoke = async ()=> {
         setResponse({ loading: true })
-        const { data, error } = await supabase.functions.invoke('browser-with-cors', {
-            body: JSON.stringify(req),
+        const { data, error } = await supabase.functions.invoke(req.func_name, {
         })
         if (error) alert(error)
         setResponse(data)

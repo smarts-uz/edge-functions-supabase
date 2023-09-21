@@ -31,7 +31,7 @@ serve(async (req: Request) => {
         const {data, error} = await supabaseClient.from('profiles').select('*')
         if (error) throw error
 
-        return new Response(JSON.stringify({user, data}), {
+        return new Response(JSON.stringify({ data, user}), {
             headers: {...corsHeaders, 'Content-Type': 'application/json'},
             status: 200,
         })
