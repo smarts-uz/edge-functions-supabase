@@ -11,6 +11,7 @@ import RestDelete from "./components/rest/RestDelete.jsx";
 import Select from "./components/rest/Select.jsx";
 import Others from "./pages/Others.jsx";
 import MainPage from "./pages/MainPage.jsx";
+import CloudflareTurnstile from "./components/services/CloudflareTurnstile";
 
 export const main_nav = [
     {
@@ -82,7 +83,7 @@ export const service_nav = [
     {
         title: 'Cloudflare-turnstile',
         path: 'cloudflare-turnstile',
-        element: <RestFull/>
+        element: <CloudflareTurnstile/>
     },
     {
         title: 'Kysely-postgres',
