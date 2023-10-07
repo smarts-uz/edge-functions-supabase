@@ -2,7 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { serve } from 'std/server'
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
 import { corsHeaders } from '../_shared/cors.ts'
 
 console.log(`Function "cloudflare-turnstile" up and running!`)
@@ -26,7 +26,7 @@ serve(async (req) => {
     // Validate the token by calling the
     // "/siteverify" API endpoint.
     const formData = new FormData()
-    formData.append('secret', Deno.env.get('0x4AAAAAAAKAPPzuubC-nkAcZw_4AEqqfNI') ?? '')
+    formData.append('secret', Deno.env.get('SECRET_KEY') ?? '0x4AAAAAAAKAPPzuubC-nkAcZw_4AEqqfNI')
     formData.append('response', token)
     formData.append('remoteip', clientIps[0])
 
