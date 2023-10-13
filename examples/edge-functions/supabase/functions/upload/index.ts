@@ -62,7 +62,7 @@ serve(async (req) => {
     //   }
     // }
 
-    const {data} = await supabaseClient.storage.from('images').upload(image.filename, image.content!.buffer, {
+    const {data} = await supabaseClient.storage.from('files').upload(image.filename, image.content!.buffer, {
       contentType: image.contentType,
       cacheControl: '3600',
       upsert: false
