@@ -1,8 +1,10 @@
 // This example shows how to use Edge Functions to read incoming multipart/form-data request,
 // and write files to Supabase Storage and other fields to a database table.
 
-import { Application } from 'oak'
-import { createClient } from '@supabase/supabase-js'
+// import { Application } from 'oak'
+import { Application } from "https://deno.land/x/oak@v11.1.0/mod.ts";
+
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2'
 
 const MB = 1024 * 1024
 
@@ -24,10 +26,10 @@ app.use(async (ctx) => {
   }
 
   const supabaseClient = createClient(
-    // Supabase API URL - env var exported by default.
-    Deno.env.get('SUPABASE_URL')!,
-    // Supabase API ANON KEY - env var exported by default.
-    Deno.env.get('SUPABASE_ANON_KEY')!
+      // Supabase API URL - env var exported by default.
+      'https://uyjwwcnooayvymdwbcsb.supabase.co',
+      // Supabase API ANON KEY - env var exported by default.
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5and3Y25vb2F5dnltZHdiY3NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTcwMDUzMTcsImV4cCI6MjAxMjU4MTMxN30.yRU-A6IHLf-OnGvyo45olnWddy1Xz79ImwJdG86zfp4'
   )
 
   //upload image to Storage
@@ -35,12 +37,12 @@ app.use(async (ctx) => {
   const timestamp = +new Date()
   const uploadName = `${file.name}-${timestamp}`
   const { data: upload, error: uploadError } = await supabaseClient.storage
-    .from('images')
-    .upload(uploadName, file.content!.buffer, {
-      contentType: file.contentType,
-      cacheControl: '3600',
-      upsert: false,
-    })
+      .from('images')
+      .upload(uploadName, file.content!.buffer, {
+        contentType: file.contentType,
+        cacheControl: '3600',
+        upsert: false,
+      })
   if (uploadError) {
     console.error(uploadError)
     ctx.response.status = 500
@@ -49,15 +51,15 @@ app.use(async (ctx) => {
   }
 
   // insert record to messages table
-  const { error } = await supabaseClient
-    .from('comments')
-    .insert({ message: formData.fields!.message || '', image_path: upload.path })
-  if (error) {
-    console.error(error)
-    ctx.response.status = 500
-    ctx.response.body = 'Fail to add the record'
-    return
-  }
+  // const { error } = await supabaseClient
+  //     .from('comments')
+  //     .insert({ message: formData.fields!.message || '', image_path: upload.path })
+  // if (error) {
+  //   console.error(error)
+  //   ctx.response.status = 500
+  //   ctx.response.body = 'Fail to add the record'
+  //   return
+  // }
 
   ctx.response.status = 201
   ctx.response.body = 'Success!'
