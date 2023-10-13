@@ -2,8 +2,8 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { serve } from 'std/server'
-import { createClient } from '@supabase/supabase-js'
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -21,24 +21,41 @@ serve(async (req) => {
     // Create a Supabase client with the AuthPage context of the logged in user.
     const supabaseClient = createClient(
       // Supabase API URL - env var exported by default.
-      Deno.env.get('SUPABASE_URL') ?? '',
+      'https://uyjwwcnooayvymdwbcsb.supabase.co',
       // Supabase API ANON KEY - env var exported by default.
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5and3Y25vb2F5dnltZHdiY3NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTcwMDUzMTcsImV4cCI6MjAxMjU4MTMxN30.yRU-A6IHLf-OnGvyo45olnWddy1Xz79ImwJdG86zfp4',
       // Create client with AuthPage context of the user that called the function.
       // This way your row-level-security (RLS) policies are applied.
       { global: { headers: { Authorization: req.headers.get('Authorization')! } } }
     )
 
-    const { data, error } = await supabaseClient.storage.from('my-bucket').download('sample.txt')
-    if (error) throw error
+    // const { data, error } = await supabaseClient.storage.from('files').download('sample.txt')
+
+
+    // if (error) throw error
 
     // file contents are returned as a blob, we can convert it to utf-8 text by calling text() method.
-    const contents = await data.text()
+    // const contents = await data.text()
 
     // prints out the contents of the file
-    console.log(contents)
+    // console.log(contents)
 
-    return new Response(JSON.stringify({ contents }), {
+    const { data, error } = await supabaseClient
+        .storage
+        .from('files')
+        .list('', {
+          limit: 100,
+          offset: 0,
+          sortBy: { column: 'name', order: 'asc' },
+        })
+
+    if (error) throw error
+
+
+
+
+
+    return new Response(JSON.stringify({ data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     })
@@ -50,4 +67,4 @@ serve(async (req) => {
       status: 400,
     })
   }
-})
+}).then()
