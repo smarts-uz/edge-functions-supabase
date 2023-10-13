@@ -1,61 +1,87 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
+/**
+ *
+ * SUPABASE EDGE FUNCTION "replace_avatar"
+ *
+ */
 
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { corsHeaders } from '../_shared/cors.ts'
+// import {serve} from "https://deno.land/std/http/server.ts";
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2'
+import {multiParser, FormFile} from 'https://deno.land/x/multiparser@0.114.0/mod.ts'
 
-const STORAGE_URL = 'https://uyjwwcnooayvymdwbcsb.supabase.co/storage/v1/object/public/images/'
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
 
 serve(async (req) => {
+
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', {headers: corsHeaders})
   }
 
   try {
+
     const supabaseClient = createClient(
-        'https://uyjwwcnooayvymdwbcsb.supabase.co',
+         'https://uyjwwcnooayvymdwbcsb.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5and3Y25vb2F5dnltZHdiY3NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTcwMDUzMTcsImV4cCI6MjAxMjU4MTMxN30.yRU-A6IHLf-OnGvyo45olnWddy1Xz79ImwJdG86zfp4',
-        // Create client with AuthPage context of the user that called the function.
-        // This way your row-level-security (RLS) policies are applied.
         {global: {headers: {Authorization: req.headers.get('Authorization')!}}}
-    )
+    );
 
-    const body = req.body
 
-    const images = body.image
-    const { data, error } = await supabaseClient
-        .storage
-        .from('images')
-        .upload('/', images, {
-          cacheControl: '3600',
-          upsert: false
-        })
 
-    console.log(data)
+    const form = await multiParser(req);
+    if (!form) {
+      return new Response(JSON.stringify({success: false, error: 'no file found'}), {
+        headers: {...corsHeaders, 'Content-Type': 'application/json'},
+        status: 400
+      });
+    }
 
-    if (error) throw error
+    const image = form.files.image as FormFile;
 
-    // return await fetch(`${STORAGE_URL}/tickets/${username}.png?v=3`)
+    // const {
+    //   data: {user},
+    // } = await supabaseClient.auth.getUser();
 
-    return new Response(
-        JSON.stringify("Ok"),
-        { headers: { "Content-Type": "application/json" } },
-    )
+    // let {data: profile} = await supabaseClient
+    //     .from('profiles')
+    //     .select('avatar_url')
+    //     .eq('id', user.id)
+    //     .limit(1)
+    //     .single();
 
-  } catch (e) {
-    return new Response(
-        JSON.stringify(e),
-        { headers: { "Content-Type": "application/json" } },
-    )
+    // if (profile && profile.avatar_url) {
+    //   const {error} = await supabaseClient.storage.from('avatars').remove([profile.avatar_url]);
+    //   if (error) {
+    //     return new Response(JSON.stringify({success: false, error: error.message}), {
+    //       headers: {...corsHeaders, 'Content-Type': 'application/json'},
+    //       status: 400
+    //     });
+    //   }
+    // }
+
+    const {data} = await supabaseClient.storage.from('images').upload(image.filename, image.content!.buffer, {
+      contentType: image.contentType,
+      cacheControl: '3600',
+      upsert: false
+    });
+
+    // await supabaseClient
+    //     .from('profiles')
+    //     .update({avatar_url: image.filename})
+    //     .eq('id', user.id);
+
+    return new Response(JSON.stringify({image, data, success: true, error: null}), {
+      headers: {...corsHeaders, 'Content-Type': 'application/json'},
+      status: 200
+    });
+
+  } catch (error) {
+    return new Response(JSON.stringify({success: false, error: error.message}), {
+      headers: {...corsHeaders, 'Content-Type': 'application/json'},
+      status: 400
+    });
   }
-
-
-})
-
-// To invoke:
-// curl -i --location --request POST 'http://localhost:54321/functions/v1/' \
-//   --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-//   --header 'Content-Type: application/json' \
-//   --data '{"name":"Functions"}'
+});
