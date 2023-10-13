@@ -11,9 +11,9 @@ const handler = async (_request: Request): Promise<Response> => {
     },
     body: JSON.stringify({
       from: 'onboarding@resend.dev',
-      to: 'delivered@resend.dev',
-      subject: 'hello world',
-      html: '<strong>it works!</strong>',
+      to: 'full_web_dev@mail.ru',
+      subject: 'Hello World',
+      html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
     }),
   })
 
