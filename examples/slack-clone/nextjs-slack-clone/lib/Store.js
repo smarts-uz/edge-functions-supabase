@@ -3,6 +3,7 @@ import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 
 export const supabase = createPagesBrowserClient()
 
+
 /**
  * @param {number} channelId the currently selected Channel
  */
