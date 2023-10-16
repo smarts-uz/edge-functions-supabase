@@ -6,6 +6,8 @@ import Account from './Account'
 import MyAuth from "./pages/MyAuth.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import SetPage from "./pages/SetPage.jsx";
+import MainPage from './pages/MainPage.jsx'
+import Posts from './pages/Posts.jsx'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -25,7 +27,10 @@ function App() {
       {/*{!session ? <Auth /> : <Account key={session.user.id} session={session} />}*/}
       {/*{!session ? <MyAuth /> : <Account key={session.user.id} session={session} />}*/}
       {/*{!session ? <SignUp /> : <Account key={session.user.id} session={session} />}*/}
-      {!session ? <SetPage /> : <Account key={session.user.id} session={session} />}
+      {/*{!session ? <SetPage /> : <Account key={session.user.id} session={session} />}*/}
+      {!session ? <SetPage /> : <MainPage key={session.user.id} session={session} />}
+      {/*{!session ? <SetPage /> : <Posts key={session.user.id} session={session} />}*/}
+
     </div>
   )
 }
